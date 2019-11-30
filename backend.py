@@ -30,6 +30,13 @@ def search(pesel):
     connection.close()
     return rows
     
+def update(id, name, surname, birthDate, birthCountry, sex, pesel):
+    connection = sqlite3.connect("testDB.db")
+    cursor = connection.cursor()
+    cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
+    connection.commit()
+    connection.close()
+
 def delete(id):
     connection = sqlite3.connect("testDB.db")
     cursor = connection.cursor()
@@ -37,12 +44,7 @@ def delete(id):
     connection.commit()
     connection.close()
  
-def update(id, name, surname, birthDate, birthCountry, sex, pesel):
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
-    connection.commit()
-    connection.close()
+
 
 
 
