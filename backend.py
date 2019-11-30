@@ -25,14 +25,32 @@ def view():
 def search(pesel):
     connection = sqlite3.connect("testDB.db")
     cursor = connection.cursor()
-    cursor.execute("SELECT * FROM test WHERE pesel = ?", (pesel,))
+    cursor.execute("SELECT * FROM test WHERE pesel=?", (pesel,))
     rows = cursor.fetchall()
     connection.close()
     return rows
     
+def delete(id):
+    connection = sqlite3.connect("testDB.db")
+    cursor = connection.cursor()
+    cursor.execute("DELETE FROM test WHERE id=?", (id,))
+    connection.commit()
+    connection.close()
+ 
+def update(id, name, surname, birthDate, birthCountry, sex, pesel):
+    connection = sqlite3.connect("testDB.db")
+    cursor = connection.cursor()
+    cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
+    connection.commit()
+    connection.close()
+
 
 
 connect()   # connecting to database anytime you switch on app
 #insert("Jan", "Kowalski", "1990-12-13", "Poland", "M", "90121312345")
-#print(view())
-print(search("97021012345"))
+print(view())
+#print(search("97021012345"))
+#delete("97021012345")
+#update(2, "Bartosz", "Kowalski", "1990-12-13", "Poland", "M", 90121312345)
+
+print(view())
