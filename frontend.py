@@ -12,6 +12,10 @@ def search_command():
     for row in backend.search(pesel.get()):
         listbox.insert(tkinter.END, row)
 
+def add_command():
+    backend.insert(name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
+    listbox.delete(0, tkinter.END)
+    listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
 
 window = tkinter.Tk()
 
@@ -68,7 +72,7 @@ buttonViewAll = tkinter.Button(window, text="View all", width=12, command=view_c
 buttonViewAll.grid(row=3, column=0)
 buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=search_command)
 buttonSearch.grid(row=3, column=1)
-buttonAdd = tkinter.Button(window, text="Add entry", width=12)
+buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=add_command)
 buttonAdd.grid(row=3, column=2)
 buttonUpdate = tkinter.Button(window, text="Update", width=12)
 buttonUpdate.grid(row=3, column=3)
