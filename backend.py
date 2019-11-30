@@ -22,6 +22,17 @@ def view():
     connection.close()
     return rows
 
+def search(pesel):
+    connection = sqlite3.connect("testDB.db")
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM test WHERE pesel = ?", (pesel,))
+    rows = cursor.fetchall()
+    connection.close()
+    return rows
+    
+
+
 connect()   # connecting to database anytime you switch on app
-insert("Filip", "Regeńczuk", "1997-02-10", "Poland", "M", "97021012345")
-print(view())
+#insert("Jan", "Kowalski", "1990-12-13", "Poland", "M", "90121312345")
+#print(view())
+print(search("97021012345"))
