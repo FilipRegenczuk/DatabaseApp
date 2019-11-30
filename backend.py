@@ -46,13 +46,12 @@ def delete(id):
  
 
 
-
-
 connect()   # connecting to database anytime you switch on app
+
+
 #insert("Jan", "Kowalski", "1990-12-13", "Poland", "M", "90121312345")
 print(view())
 #print(search("97021012345"))
 #delete("97021012345")
 #update(2, "Bartosz", "Kowalski", "1990-12-13", "Poland", "M", 90121312345)
 
-print(view())

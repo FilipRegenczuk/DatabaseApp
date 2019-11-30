@@ -1,6 +1,18 @@
 import tkinter
 import backend
 
+
+def view_command():
+    listbox.delete(0, tkinter.END)
+    for row in backend.view():
+        listbox.insert(tkinter.END, row)
+
+def search_command():
+    listbox.delete(0, tkinter.END)
+    for row in backend.search(pesel.get()):
+        listbox.insert(tkinter.END, row)
+
+
 window = tkinter.Tk()
 
 window.title("Humans database")
@@ -52,9 +64,9 @@ listbox.configure(yscrollcommand=scrollbar.set)
 scrollbar.configure(command=listbox.yview)
 
 # buttons:
-buttonViewAll = tkinter.Button(window, text="View all", width=12)
+buttonViewAll = tkinter.Button(window, text="View all", width=12, command=view_command)
 buttonViewAll.grid(row=3, column=0)
-buttonSearch = tkinter.Button(window, text="Search entry", width=12)
+buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=search_command)
 buttonSearch.grid(row=3, column=1)
 buttonAdd = tkinter.Button(window, text="Add entry", width=12)
 buttonAdd.grid(row=3, column=2)
