@@ -35,6 +35,9 @@ def add_command():
     listbox.delete(0, tkinter.END)
     listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
 
+def update_command():
+    backend.update(selected_tuple[0], name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
+
 def delete_command():
     backend.delete(selected_tuple[0])
     view_command()
@@ -101,11 +104,11 @@ buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=sea
 buttonSearch.grid(row=3, column=1)
 buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=add_command)
 buttonAdd.grid(row=3, column=2)
-buttonUpdate = tkinter.Button(window, text="Update", width=12)
+buttonUpdate = tkinter.Button(window, text="Update", width=12, command=update_command)
 buttonUpdate.grid(row=3, column=3)
 buttonDelete = tkinter.Button(window, text="Delete", width=12, command=delete_command)
 buttonDelete.grid(row=3, column=4)
-buttonClose = tkinter.Button(window, text="Close", width=12)
+buttonClose = tkinter.Button(window, text="Close", width=12, command=window.destroy)
 buttonClose.grid(row=3, column=5)
 
 
