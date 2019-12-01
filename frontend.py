@@ -4,21 +4,24 @@ import backend
 # This function is used to return id of selected row.
 # Futhermore it prints selected row in labels.
 def get_selected_row(event):
-    global selected_tuple
-    index = listbox.curselection()[0]
-    selected_tuple = listbox.get(index)
-    entryName.delete(0, tkinter.END)
-    entryName.insert(tkinter.END, selected_tuple[1])
-    entrySurname.delete(0, tkinter.END)
-    entrySurname.insert(tkinter.END, selected_tuple[2])
-    entryBirthDate.delete(0, tkinter.END)
-    entryBirthDate.insert(tkinter.END, selected_tuple[3])
-    entryBirthCountry.delete(0, tkinter.END)
-    entryBirthCountry.insert(tkinter.END, selected_tuple[4])
-    entrySex.delete(0, tkinter.END)
-    entrySex.insert(tkinter.END, selected_tuple[5])
-    entryPesel.delete(0, tkinter.END)
-    entryPesel.insert(tkinter.END, selected_tuple[6])
+    try:
+        global selected_tuple
+        index = listbox.curselection()[0]
+        selected_tuple = listbox.get(index)
+        entryName.delete(0, tkinter.END)
+        entryName.insert(tkinter.END, selected_tuple[1])
+        entrySurname.delete(0, tkinter.END)
+        entrySurname.insert(tkinter.END, selected_tuple[2])
+        entryBirthDate.delete(0, tkinter.END)
+        entryBirthDate.insert(tkinter.END, selected_tuple[3])
+        entryBirthCountry.delete(0, tkinter.END)
+        entryBirthCountry.insert(tkinter.END, selected_tuple[4])
+        entrySex.delete(0, tkinter.END)
+        entrySex.insert(tkinter.END, selected_tuple[5])
+        entryPesel.delete(0, tkinter.END)
+        entryPesel.insert(tkinter.END, selected_tuple[6])
+    except IndexError:
+        pass
 
 def view_command():
     listbox.delete(0, tkinter.END)
@@ -40,7 +43,7 @@ def update_command():
 
 def delete_command():
     backend.delete(selected_tuple[0])
-    view_command()
+    
 
 
 
