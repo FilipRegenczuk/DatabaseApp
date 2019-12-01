@@ -4,121 +4,122 @@ from backend import Database
 
 database = Database("testDB.db")
 
+class Window(object):
 
-# This function is used to return id of selected row. 
-# Futhermore it prints selected row in labels.
-def get_selected_row(event):
-    try:
-        global selected_tuple
-        index = listbox.curselection()[0]
-        selected_tuple = listbox.get(index)
-        entryName.delete(0, tkinter.END)
-        entryName.insert(tkinter.END, selected_tuple[1])
-        entrySurname.delete(0, tkinter.END)
-        entrySurname.insert(tkinter.END, selected_tuple[2])
-        entryBirthDate.delete(0, tkinter.END)
-        entryBirthDate.insert(tkinter.END, selected_tuple[3])
-        entryBirthCountry.delete(0, tkinter.END)
-        entryBirthCountry.insert(tkinter.END, selected_tuple[4])
-        entrySex.delete(0, tkinter.END)
-        entrySex.insert(tkinter.END, selected_tuple[5])
-        entryPesel.delete(0, tkinter.END)
-        entryPesel.insert(tkinter.END, selected_tuple[6])
-    except IndexError:
-        pass
+    def __init__(self, window):
+        self.window = window
 
-def view_command():
-    listbox.delete(0, tkinter.END)
-    for row in database.view():
-        listbox.insert(tkinter.END, row)
+        # window features:
+        window.title("Humans database")
+        window.resizable(0, 0)
+        window.geometry('700x180')
 
-def search_command():
-    listbox.delete(0, tkinter.END)
-    for row in database.search(pesel.get()):
-        listbox.insert(tkinter.END, row)
+        # labels:
+        labelName = tkinter.Label(window, text="Name:")
+        labelName.grid(row=0, column=0)
+        labelSurname = tkinter.Label(window, text="Surname:")
+        labelSurname.grid(row=0, column=2)
+        labelDate = tkinter.Label(window, text="Date of birth:")
+        labelDate.grid(row=0, column=4)
+        labelCountry = tkinter.Label(window, text="Country of birth:")
+        labelCountry.grid(row=1, column=0)
+        labelSex = tkinter.Label(window, text="Sex:")
+        labelSex.grid(row=1, column=2)
+        labelPesel = tkinter.Label(window, text="PESEL:")
+        labelPesel.grid(row=1, column=4)
 
-def add_command():
-    database.insert(name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
-    listbox.delete(0, tkinter.END)
-    listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
+        # entries:
+        self.name = tkinter.StringVar()
+        self.entryName = tkinter.Entry(window, textvariable=self.name)
+        self.entryName.grid(row=0, column=1)
+        self.surname = tkinter.StringVar()
+        self.entrySurname = tkinter.Entry(window, textvariable=self.surname)
+        self.entrySurname.grid(row=0, column=3)
+        self.birthDate = tkinter.StringVar()
+        self.entryBirthDate = tkinter.Entry(window, textvariable=self.birthDate)
+        self.entryBirthDate.grid(row=0, column=5)
+        self.birthCountry = tkinter.StringVar()
+        self.entryBirthCountry = tkinter.Entry(window, textvariable=self.birthCountry)
+        self.entryBirthCountry.grid(row=1, column=1)
+        self.sex = tkinter.StringVar()
+        self.entrySex = tkinter.Entry(window, textvariable=self.sex)
+        self.entrySex.grid(row=1, column=3)
+        self.pesel = tkinter.StringVar()
+        self.entryPesel = tkinter.Entry(window, textvariable=self.pesel)
+        self.entryPesel.grid(row=1, column=5)
 
-def update_command():
-    database.update(selected_tuple[0], name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
+        # listbox:
+        self.listbox = tkinter.Listbox(window, height=6, width=110)
+        self.listbox.grid(row=2, column=0, columnspan=6)
 
-def delete_command():
-    database.delete(selected_tuple[0])
-    
+        # scrollbar
+        self.scrollbar = tkinter.Scrollbar(window)
+        self.scrollbar.grid(row=2, column=6)
+        self.listbox.configure(yscrollcommand=self.scrollbar.set)
+        self.scrollbar.configure(command=self.listbox.yview)
+
+        # bind
+        self.listbox.bind('<<ListboxSelect>>', self.get_selected_row)
+
+        # buttons:
+        buttonViewAll = tkinter.Button(window, text="View all", width=12, command=self.view_command)
+        buttonViewAll.grid(row=3, column=0)
+        buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=self.search_command)
+        buttonSearch.grid(row=3, column=1)
+        buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=self.add_command)
+        buttonAdd.grid(row=3, column=2)
+        buttonUpdate = tkinter.Button(window, text="Update", width=12, command=self.update_command)
+        buttonUpdate.grid(row=3, column=3)
+        buttonDelete = tkinter.Button(window, text="Delete", width=12, command=self.delete_command)
+        buttonDelete.grid(row=3, column=4)
+        buttonClose = tkinter.Button(window, text="Close", width=12, command=window.destroy)
+        buttonClose.grid(row=3, column=5)
 
 
+    # This function is used to return id of selected row. 
+    # Futhermore it prints selected row in labels.
+    def get_selected_row(self, event):
+        try:
+            global selected_tuple
+            index = self.listbox.curselection()[0]
+            selected_tuple = self.listbox.get(index)
+            self.entryName.delete(0, tkinter.END)
+            self.entryName.insert(tkinter.END, selected_tuple[1])
+            self.entrySurname.delete(0, tkinter.END)
+            self.entrySurname.insert(tkinter.END, selected_tuple[2])
+            self.entryBirthDate.delete(0, tkinter.END)
+            self.entryBirthDate.insert(tkinter.END, selected_tuple[3])
+            self.entryBirthCountry.delete(0, tkinter.END)
+            self.entryBirthCountry.insert(tkinter.END, selected_tuple[4])
+            self.entrySex.delete(0, tkinter.END)
+            self.entrySex.insert(tkinter.END, selected_tuple[5])
+            self.entryPesel.delete(0, tkinter.END)
+            self.entryPesel.insert(tkinter.END, selected_tuple[6])
+        except IndexError:
+            pass
+
+    def view_command(self):
+        self.listbox.delete(0, tkinter.END)
+        for row in database.view():
+            self.listbox.insert(tkinter.END, row)
+
+    def search_command(self):
+        self.listbox.delete(0, tkinter.END)
+        for row in database.search(self.pesel.get()):
+            self.listbox.insert(tkinter.END, row)
+
+    def add_command(self):
+        database.insert(self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get())
+        self.listbox.delete(0, tkinter.END)
+        self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get()))
+
+    def update_command(self):
+        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get())
+
+    def delete_command(self):
+        database.delete(selected_tuple[0])
+        
 
 window = tkinter.Tk()
-
-window.title("Humans database")
-window.resizable(0, 0)
-window.geometry('700x180')
-
-# labels:
-labelName = tkinter.Label(window, text="Name:")
-labelName.grid(row=0, column=0)
-labelSurname = tkinter.Label(window, text="Surname:")
-labelSurname.grid(row=0, column=2)
-labelDate = tkinter.Label(window, text="Date of birth:")
-labelDate.grid(row=0, column=4)
-labelCountry = tkinter.Label(window, text="Country of birth:")
-labelCountry.grid(row=1, column=0)
-labelSex = tkinter.Label(window, text="Sex:")
-labelSex.grid(row=1, column=2)
-labelPesel = tkinter.Label(window, text="PESEL:")
-labelPesel.grid(row=1, column=4)
-
-# entries:
-name = tkinter.StringVar()
-entryName = tkinter.Entry(window, textvariable=name)
-entryName.grid(row=0, column=1)
-surname = tkinter.StringVar()
-entrySurname = tkinter.Entry(window, textvariable=surname)
-entrySurname.grid(row=0, column=3)
-birthDate = tkinter.StringVar()
-entryBirthDate = tkinter.Entry(window, textvariable=birthDate)
-entryBirthDate.grid(row=0, column=5)
-birthCountry = tkinter.StringVar()
-entryBirthCountry = tkinter.Entry(window, textvariable=birthCountry)
-entryBirthCountry.grid(row=1, column=1)
-sex = tkinter.StringVar()
-entrySex = tkinter.Entry(window, textvariable=sex)
-entrySex.grid(row=1, column=3)
-pesel = tkinter.StringVar()
-entryPesel = tkinter.Entry(window, textvariable=pesel)
-entryPesel.grid(row=1, column=5)
-
-# listbox:
-listbox = tkinter.Listbox(window, height=6, width=110)
-listbox.grid(row=2, column=0, columnspan=6)
-
-# scrollbar
-scrollbar = tkinter.Scrollbar(window)
-scrollbar.grid(row=2, column=6)
-listbox.configure(yscrollcommand=scrollbar.set)
-scrollbar.configure(command=listbox.yview)
-
-# bind
-listbox.bind('<<ListboxSelect>>', get_selected_row)
-
-# buttons:
-buttonViewAll = tkinter.Button(window, text="View all", width=12, command=view_command)
-buttonViewAll.grid(row=3, column=0)
-buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=search_command)
-buttonSearch.grid(row=3, column=1)
-buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=add_command)
-buttonAdd.grid(row=3, column=2)
-buttonUpdate = tkinter.Button(window, text="Update", width=12, command=update_command)
-buttonUpdate.grid(row=3, column=3)
-buttonDelete = tkinter.Button(window, text="Delete", width=12, command=delete_command)
-buttonDelete.grid(row=3, column=4)
-buttonClose = tkinter.Button(window, text="Close", width=12, command=window.destroy)
-buttonClose.grid(row=3, column=5)
-
-
-
-
+Window(window)
 window.mainloop()
