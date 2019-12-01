@@ -2,6 +2,12 @@ import tkinter
 import backend
 
 
+def get_selected_row(event):
+    index = listbox.curselection()[0]
+    selected_tuple = listbox.get(index)
+    print(selected_tuple)
+
+
 def view_command():
     listbox.delete(0, tkinter.END)
     for row in backend.view():
@@ -16,6 +22,12 @@ def add_command():
     backend.insert(name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
     listbox.delete(0, tkinter.END)
     listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
+
+def delete_command():
+
+    listbox.delete(0, tkinter.END)
+
+
 
 window = tkinter.Tk()
 
@@ -67,6 +79,9 @@ scrollbar.grid(row=2, column=6)
 listbox.configure(yscrollcommand=scrollbar.set)
 scrollbar.configure(command=listbox.yview)
 
+# bind
+listbox.bind('<<ListboxSelect>>', get_selected_row)
+
 # buttons:
 buttonViewAll = tkinter.Button(window, text="View all", width=12, command=view_command)
 buttonViewAll.grid(row=3, column=0)
@@ -76,7 +91,7 @@ buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=add_comma
 buttonAdd.grid(row=3, column=2)
 buttonUpdate = tkinter.Button(window, text="Update", width=12)
 buttonUpdate.grid(row=3, column=3)
-buttonDelete = tkinter.Button(window, text="Delete", width=12)
+buttonDelete = tkinter.Button(window, text="Delete", width=12, command=delete_command)
 buttonDelete.grid(row=3, column=4)
 buttonClose = tkinter.Button(window, text="Close", width=12)
 buttonClose.grid(row=3, column=5)
