@@ -3,9 +3,10 @@ import backend
 
 
 def get_selected_row(event):
+    global selected_tuple
     index = listbox.curselection()[0]
     selected_tuple = listbox.get(index)
-    print(selected_tuple)
+
 
 
 def view_command():
@@ -24,8 +25,8 @@ def add_command():
     listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
 
 def delete_command():
-
-    listbox.delete(0, tkinter.END)
+    backend.delete(selected_tuple[0])
+    view_command()
 
 
 
