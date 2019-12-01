@@ -1,57 +1,37 @@
 import sqlite3
 
-def connect():
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, name TEXT, surname TEXT, date_of_birth TEXT, country_of_birth TEXT, sex TEXT, pesel INTEGER)")
-    connection.commit()
-    connection.close()
+class Database:
 
-def insert(name, surname, birthDate, birthCountry, sex, pesel):
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("INSERT INTO test VALUES (NULL, ?, ?, ?, ?, ?, ?)", (name, surname, birthDate, birthCountry, sex, pesel))
-    connection.commit()
-    connection.close()
+    def __init__(self, database):
+        self.connection = sqlite3.connect(database)
+        self.cursor = self.connection.cursor()
+        self.cursor.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, name TEXT, surname TEXT, date_of_birth TEXT, country_of_birth TEXT, sex TEXT, pesel INTEGER)")
+        self.connection.commit()
 
-def view():
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM test")
-    rows = cursor.fetchall()
-    connection.close()
-    return rows
+    def __del__(self):
+        self.connection.close()
 
-def search(pesel):
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("SELECT * FROM test WHERE pesel=?", (pesel,))
-    rows = cursor.fetchall()
-    connection.close()
-    return rows
+    def view(self):
+        self.cursor.execute("SELECT * FROM test")
+        rows = self.cursor.fetchall()
+        return rows
+
+    def insert(self, name, surname, birthDate, birthCountry, sex, pesel):
+        self.cursor.execute("INSERT INTO test VALUES (NULL, ?, ?, ?, ?, ?, ?)", (name, surname, birthDate, birthCountry, sex, pesel))
+        self.connection.commit()
+
+    def search(self, pesel):
+        self.cursor.execute("SELECT * FROM test WHERE pesel=?", (pesel,))
+        rows = self.cursor.fetchall()
+        return rows
+        
+    def update(self, id, name, surname, birthDate, birthCountry, sex, pesel):
+        self.cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
+        self.connection.commit()
+
+    def delete(self, id):
+        self.cursor.execute("DELETE FROM test WHERE id=?", (id,))
+        self.connection.commit()
+
+
     
-def update(id, name, surname, birthDate, birthCountry, sex, pesel):
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
-    connection.commit()
-    connection.close()
-
-def delete(id):
-    connection = sqlite3.connect("testDB.db")
-    cursor = connection.cursor()
-    cursor.execute("DELETE FROM test WHERE id=?", (id,))
-    connection.commit()
-    connection.close()
- 
-
-
-connect()   # connecting to database anytime you switch on app
-
-
-#insert("Jan", "Kowalski", "1990-12-13", "Poland", "M", "90121312345")
-#print(view())
-#print(search("97021012345"))
-#delete("97021012345")
-#update(2, "Bartosz", "Kowalski", "1990-12-13", "Poland", "M", 90121312345)
-

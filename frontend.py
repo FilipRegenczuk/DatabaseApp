@@ -1,7 +1,11 @@
 import tkinter
-import backend
+from backend import Database
 
-# This function is used to return id of selected row.
+
+database = Database("testDB.db")
+
+
+# This function is used to return id of selected row. 
 # Futhermore it prints selected row in labels.
 def get_selected_row(event):
     try:
@@ -25,24 +29,24 @@ def get_selected_row(event):
 
 def view_command():
     listbox.delete(0, tkinter.END)
-    for row in backend.view():
+    for row in database.view():
         listbox.insert(tkinter.END, row)
 
 def search_command():
     listbox.delete(0, tkinter.END)
-    for row in backend.search(pesel.get()):
+    for row in database.search(pesel.get()):
         listbox.insert(tkinter.END, row)
 
 def add_command():
-    backend.insert(name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
+    database.insert(name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
     listbox.delete(0, tkinter.END)
     listbox.insert(tkinter.END, (name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get()))
 
 def update_command():
-    backend.update(selected_tuple[0], name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
+    database.update(selected_tuple[0], name.get(), surname.get(), birthDate.get(), birthCountry.get(), sex.get(), pesel.get())
 
 def delete_command():
-    backend.delete(selected_tuple[0])
+    database.delete(selected_tuple[0])
     
 
 
