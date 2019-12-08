@@ -12,7 +12,7 @@ class Window(object):
         # window features:
         window.title("Dział Ewidencji Ludności")
         window.resizable(0, 0)
-        #window.geometry('1200x200')
+        window.geometry('1100x280')
 
         # LABELS:
         # 0. row
@@ -124,23 +124,23 @@ class Window(object):
         self.listbox.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.listbox.yview)
 
-"""
+
         # bind
         self.listbox.bind('<<ListboxSelect>>', self.get_selected_row)
 
         # buttons:
         buttonViewAll = tkinter.Button(window, text="View all", width=12, command=self.view_command)
-        buttonViewAll.grid(row=3, column=0)
+        buttonViewAll.grid(row=6, column=0)
         buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=self.search_command)
-        buttonSearch.grid(row=3, column=1)
+        buttonSearch.grid(row=6, column=1)
         buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=self.add_command)
-        buttonAdd.grid(row=3, column=2)
+        buttonAdd.grid(row=6, column=2)
         buttonUpdate = tkinter.Button(window, text="Update", width=12, command=self.update_command)
-        buttonUpdate.grid(row=3, column=3)
+        buttonUpdate.grid(row=6, column=3)
         buttonDelete = tkinter.Button(window, text="Delete", width=12, command=self.delete_command)
-        buttonDelete.grid(row=3, column=4)
+        buttonDelete.grid(row=6, column=4)
         buttonClose = tkinter.Button(window, text="Close", width=12, command=window.destroy)
-        buttonClose.grid(row=3, column=5)
+        buttonClose.grid(row=6, column=5)
 
 
 
@@ -187,7 +187,6 @@ class Window(object):
     def delete_command(self):
         database.delete(selected_tuple[0])
     
-     """
 
 
 window = tkinter.Tk()
