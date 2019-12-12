@@ -2,7 +2,7 @@ import tkinter
 from backend import Database
 
 
-database = Database("testDB.db")
+database = Database()
 
 class Window(object):
 
@@ -49,12 +49,7 @@ class Window(object):
         labelCountryPriev.grid(row=3, column=2)
         labelDeathDate = tkinter.Label(window, text="Data zgonu:")
         labelDeathDate.grid(row=3, column=4)
-        # 4. row
-        labelChangeDate = tkinter.Label(window, text="Data zmiany:")
-        labelChangeDate.grid(row=4, column=0)
-        labelChangeTime = tkinter.Label(window, text="Godzina zmiany:")
-        labelChangeTime.grid(row=4, column=2)
-
+        
 
         # ENTRIES:
         # 0. row
@@ -106,13 +101,7 @@ class Window(object):
         self.deathDate = tkinter.StringVar()
         self.entryDeathDate = tkinter.Entry(window, textvariable=self.deathDate)
         self.entryDeathDate.grid(row=3, column=5)
-        # 4. row
-        self.changeDate = tkinter.StringVar()
-        self.entryChangeDate = tkinter.Entry(window, textvariable=self.changeDate)
-        self.entryChangeDate.grid(row=4, column=1)
-        self.changeTime = tkinter.StringVar()
-        self.entryChangeTime = tkinter.Entry(window, textvariable=self.changeTime)
-        self.entryChangeTime.grid(row=4, column=3)
+        
 
         # listbox:
         self.listbox = tkinter.Listbox(window, height=8, width=180)

@@ -1,18 +1,25 @@
-import sqlite3
+import mysql.connector
 
 class Database:
 
-    def __init__(self, database):
-        self.connection = sqlite3.connect(database)
+    def __init__(self):
+
+        self.connection = mysql.connector.connect(
+        host = 'localhost',
+        user = 'root',
+        password = '6015',
+        database = 'del'
+        )
+
         self.cursor = self.connection.cursor()
-        self.cursor.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, name TEXT, surname TEXT, date_of_birth TEXT, country_of_birth TEXT, sex TEXT, pesel INTEGER)")
-        self.connection.commit()
+        #self.cursor.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, name TEXT, surname TEXT, date_of_birth TEXT, country_of_birth TEXT, sex TEXT, pesel INTEGER)")
+        #self.connection.commit()
 
     def __del__(self):
         self.connection.close()
 
     def view(self):
-        self.cursor.execute("SELECT * FROM test")
+        self.cursor.execute("SELECT * FROM dane_osobowe")
         rows = self.cursor.fetchall()
         return rows
 
