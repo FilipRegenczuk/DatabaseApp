@@ -12,7 +12,7 @@ class Window(object):
         # window features:
         window.title("Dział Ewidencji Ludności")
         window.resizable(0, 0)
-        window.geometry('1100x280')
+        window.geometry('1110x280')
 
         # LABELS:
         # 0. row
@@ -104,7 +104,7 @@ class Window(object):
         
 
         # listbox:
-        self.listbox = tkinter.Listbox(window, height=8, width=180)
+        self.listbox = tkinter.Listbox(window, height=8, width=184)
         self.listbox.grid(row=4, column=0, columnspan=8)
 
         # scrollbar
@@ -117,7 +117,7 @@ class Window(object):
         self.listbox.bind('<<ListboxSelect>>', self.get_selected_row)
 
         # buttons:
-        buttonClear = tkinter.Button(window, text="Wyczyść", width=12, command=self.clear_command, bg="tomato")
+        buttonClear = tkinter.Button(window, text="Wyczyść", width=16, command=self.clear_command, bg="tomato")
         buttonClear.grid(row=3, column=7)
         buttonViewAll = tkinter.Button(window, text="Pokaż wszystkich", width=14, command=self.view_command)
         buttonViewAll.grid(row=5, column=0)
@@ -176,13 +176,13 @@ class Window(object):
         for row in database.view():
             self.listbox.insert(tkinter.END, row)
 
-    def search_command(self, name, surname):
+    def search_command(self):
         self.listbox.delete(0, tkinter.END)
         for row in database.search(self.pesel.get(), self.name.get(), self.surname.get()):
             self.listbox.insert(tkinter.END, row)
 
     def add_command(self):
-        database.insert(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
+        database.insert(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
