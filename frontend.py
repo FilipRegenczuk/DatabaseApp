@@ -105,32 +105,30 @@ class Window(object):
 
         # listbox:
         self.listbox = tkinter.Listbox(window, height=8, width=180)
-        self.listbox.grid(row=5, column=0, columnspan=8)
+        self.listbox.grid(row=4, column=0, columnspan=8)
 
         # scrollbar
         self.scrollbar = tkinter.Scrollbar(window)
-        self.scrollbar.grid(row=5, column=8)
+        self.scrollbar.grid(row=4, column=8)
         self.listbox.configure(yscrollcommand=self.scrollbar.set)
         self.scrollbar.configure(command=self.listbox.yview)
-
 
         # bind
         self.listbox.bind('<<ListboxSelect>>', self.get_selected_row)
 
         # buttons:
-        buttonViewAll = tkinter.Button(window, text="View all", width=12, command=self.view_command)
-        buttonViewAll.grid(row=6, column=0)
-        buttonSearch = tkinter.Button(window, text="Search PESEL", width=12, command=self.search_command)
-        buttonSearch.grid(row=6, column=1)
-        buttonAdd = tkinter.Button(window, text="Add entry", width=12, command=self.add_command)
-        buttonAdd.grid(row=6, column=2)
-        buttonUpdate = tkinter.Button(window, text="Update", width=12, command=self.update_command)
-        buttonUpdate.grid(row=6, column=3)
-        buttonDelete = tkinter.Button(window, text="Delete", width=12, command=self.delete_command)
-        buttonDelete.grid(row=6, column=4)
-        buttonClose = tkinter.Button(window, text="Close", width=12, command=window.destroy)
-        buttonClose.grid(row=6, column=5)
-
+        buttonClear = tkinter.Button(window, text="Wyczyść", width=12, command=self.clear_command, bg="tomato")
+        buttonClear.grid(row=3, column=7)
+        buttonViewAll = tkinter.Button(window, text="Pokaż wszystkich", width=14, command=self.view_command)
+        buttonViewAll.grid(row=5, column=0)
+        buttonSearch = tkinter.Button(window, text="Szukaj", width=12, command=self.search_command)
+        buttonSearch.grid(row=5, column=1)
+        buttonAdd = tkinter.Button(window, text="Dodaj", width=12, command=self.add_command)
+        buttonAdd.grid(row=5, column=2)
+        buttonUpdate = tkinter.Button(window, text="Edytuj", width=12, command=self.update_command)
+        buttonUpdate.grid(row=5, column=3)
+        buttonClose = tkinter.Button(window, text="Zamknij", width=12, command=window.destroy)
+        buttonClose.grid(row=5, column=4)
 
 
     # This function is used to return id of selected row. 
@@ -192,9 +190,28 @@ class Window(object):
     def update_command(self):
         database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
 
+    def clear_command(self):
+        self.entryName.delete(0, tkinter.END)
+        self.entrySurname.delete(0, tkinter.END)
+        self.entryFather.delete(0, tkinter.END)
+        self.entryMother.delete(0, tkinter.END)
+        self.entryBirthDate.delete(0, tkinter.END)
+        self.entryBirthCity.delete(0, tkinter.END)
+        self.entryBirthCountry.delete(0, tkinter.END)
+        self.entrySex.delete(0, tkinter.END)
+        self.entryPesel.delete(0, tkinter.END)
+        self.entryState.delete(0, tkinter.END)
+        self.entryNationality.delete(0, tkinter.END)
+        self.entryAddress.delete(0, tkinter.END)
+        self.entryCountry.delete(0, tkinter.END)
+        self.entryCountryPriev.delete(0, tkinter.END)
+        self.entryDeathDate.delete(0, tkinter.END)
+
+
+    """
     def delete_command(self):
         database.delete(selected_tuple[0])
-    
+    """
 
 
 window = tkinter.Tk()
