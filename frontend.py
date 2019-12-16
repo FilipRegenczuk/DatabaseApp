@@ -12,7 +12,7 @@ class Window(object):
         # window features:
         window.title("Dział Ewidencji Ludności")
         window.resizable(0, 0)
-        window.geometry('1110x280')
+        window.geometry('1110x260')
 
         # LABELS:
         # 0. row
@@ -120,15 +120,15 @@ class Window(object):
         buttonClear = tkinter.Button(window, text="Wyczyść", width=16, command=self.clear_command, bg="tomato")
         buttonClear.grid(row=3, column=7)
         buttonViewAll = tkinter.Button(window, text="Pokaż wszystkich", width=14, command=self.view_command)
-        buttonViewAll.grid(row=5, column=0)
-        buttonSearch = tkinter.Button(window, text="Szukaj", width=12, command=self.search_command)
-        buttonSearch.grid(row=5, column=1)
-        buttonAdd = tkinter.Button(window, text="Dodaj", width=12, command=self.add_command)
-        buttonAdd.grid(row=5, column=2)
-        buttonUpdate = tkinter.Button(window, text="Edytuj", width=12, command=self.update_command)
-        buttonUpdate.grid(row=5, column=3)
-        buttonClose = tkinter.Button(window, text="Zamknij", width=12, command=window.destroy)
-        buttonClose.grid(row=5, column=4)
+        buttonViewAll.grid(row=5, column=1)
+        buttonSearch = tkinter.Button(window, text="Szukaj", width=14, command=self.search_command)
+        buttonSearch.grid(row=5, column=2)
+        buttonAdd = tkinter.Button(window, text="Dodaj", width=14, command=self.add_command)
+        buttonAdd.grid(row=5, column=3)
+        buttonUpdate = tkinter.Button(window, text="Edytuj", width=14, command=self.update_command)
+        buttonUpdate.grid(row=5, column=4)
+        buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
+        buttonClose.grid(row=5, column=7)
 
 
     # This function is used to return id of selected row. 
@@ -206,12 +206,6 @@ class Window(object):
         self.entryCountry.delete(0, tkinter.END)
         self.entryCountryPriev.delete(0, tkinter.END)
         self.entryDeathDate.delete(0, tkinter.END)
-
-
-    """
-    def delete_command(self):
-        database.delete(selected_tuple[0])
-    """
 
 
 window = tkinter.Tk()

@@ -55,11 +55,4 @@ class Database:
         self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate, id))
         self.connection.commit()
 
-
-    """
-    def delete(self, id):
-        self.cursor.execute("DELETE FROM dane_osobowe WHERE id_danych=%s", (id,))
-        self.connection.commit()
-    """
-
     
