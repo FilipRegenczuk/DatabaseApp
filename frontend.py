@@ -144,14 +144,32 @@ class Window(object):
             self.entryName.insert(tkinter.END, selected_tuple[1])
             self.entrySurname.delete(0, tkinter.END)
             self.entrySurname.insert(tkinter.END, selected_tuple[2])
+            self.entryFather.delete(0, tkinter.END)
+            self.entryFather.insert(tkinter.END, selected_tuple[3])
+            self.entryMother.delete(0, tkinter.END)
+            self.entryMother.insert(tkinter.END, selected_tuple[4])
             self.entryBirthDate.delete(0, tkinter.END)
-            self.entryBirthDate.insert(tkinter.END, selected_tuple[3])
+            self.entryBirthDate.insert(tkinter.END, selected_tuple[5])
+            self.entryBirthCity.delete(0, tkinter.END)
+            self.entryBirthCity.insert(tkinter.END, selected_tuple[6])
             self.entryBirthCountry.delete(0, tkinter.END)
-            self.entryBirthCountry.insert(tkinter.END, selected_tuple[4])
+            self.entryBirthCountry.insert(tkinter.END, selected_tuple[7])
             self.entrySex.delete(0, tkinter.END)
-            self.entrySex.insert(tkinter.END, selected_tuple[5])
+            self.entrySex.insert(tkinter.END, selected_tuple[8])
             self.entryPesel.delete(0, tkinter.END)
-            self.entryPesel.insert(tkinter.END, selected_tuple[6])
+            self.entryPesel.insert(tkinter.END, selected_tuple[9])
+            self.entryState.delete(0, tkinter.END)
+            self.entryState.insert(tkinter.END, selected_tuple[10])
+            self.entryNationality.delete(0, tkinter.END)
+            self.entryNationality.insert(tkinter.END, selected_tuple[11])
+            self.entryAddress.delete(0, tkinter.END)
+            self.entryAddress.insert(tkinter.END, selected_tuple[12])
+            self.entryCountry.delete(0, tkinter.END)
+            self.entryCountry.insert(tkinter.END, selected_tuple[13])
+            self.entryCountryPriev.delete(0, tkinter.END)
+            self.entryCountryPriev.insert(tkinter.END, selected_tuple[14])
+            self.entryDeathDate.delete(0, tkinter.END)
+            self.entryDeathDate.insert(tkinter.END, selected_tuple[15])
         except IndexError:
             pass
 
@@ -160,18 +178,19 @@ class Window(object):
         for row in database.view():
             self.listbox.insert(tkinter.END, row)
 
-    def search_command(self):
+    def search_command(self, name, surname):
         self.listbox.delete(0, tkinter.END)
-        for row in database.search(self.pesel.get()):
+        for row in database.search(self.pesel.get(), self.name.get(), self.surname.get()):
             self.listbox.insert(tkinter.END, row)
 
     def add_command(self):
-        database.insert(self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get())
+        database.insert(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
-        self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get()))
+        self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
+    #TODO change arguments
     def update_command(self):
-        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get())
+        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
 
     def delete_command(self):
         database.delete(selected_tuple[0])

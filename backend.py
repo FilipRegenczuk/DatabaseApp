@@ -3,18 +3,14 @@ import mysql.connector
 class Database:
 
     def __init__(self):
-
         self.connection = mysql.connector.connect(
         host = 'localhost',
         user = 'root',
         password = '6015',
         database = 'del'
         )
-
         self.cursor = self.connection.cursor()
-        #self.cursor.execute("CREATE TABLE IF NOT EXISTS test (id INTEGER PRIMARY KEY, name TEXT, surname TEXT, date_of_birth TEXT, country_of_birth TEXT, sex TEXT, pesel INTEGER)")
-        #self.connection.commit()
-
+        
     def __del__(self):
         self.connection.close()
 
@@ -23,21 +19,21 @@ class Database:
         rows = self.cursor.fetchall()
         return rows
 
-    def insert(self, name, surname, birthDate, birthCountry, sex, pesel):
-        self.cursor.execute("INSERT INTO test VALUES (NULL, ?, ?, ?, ?, ?, ?)", (name, surname, birthDate, birthCountry, sex, pesel))
+    def insert(self, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
+        self.cursor.execute("INSERT INTO dane_osobowe VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate))
         self.connection.commit()
 
-    def search(self, pesel):
-        self.cursor.execute("SELECT * FROM test WHERE pesel=?", (pesel,))
+    def search(self, pesel, name, surname):
+        self.cursor.execute("SELECT * FROM dane_osobowe WHERE pesel=? OR (imie=? AND nazwisko=?)", (pesel, name, surname))
         rows = self.cursor.fetchall()
         return rows
         
-    def update(self, id, name, surname, birthDate, birthCountry, sex, pesel):
-        self.cursor.execute("UPDATE test SET name=?, surname=?, date_of_birth=?, country_of_birth=?, sex=?, pesel=? WHERE id=?", (name, surname, birthDate, birthCountry, sex, pesel, id))
+    def update(self, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
+        self.cursor.execute("UPDATE dane_osobowe SET imie=?, nazwisko=?, imie_i_nazwisko_rodowe_ojca=?, imie_i_nazwisko_rodowe_matki=?, data_urodzenia=?, miejsce_urodzenia=?, kraj_pochodzenia=?, plec=?, pesel=?, stan_cywilny=?, obywatelstwo_lub_stan_bezpanstwowca=?, adres_zameldowania_na_pobyt_staly=?, kraj_miejsca_zamieszkania=?, kraj_poprzedniego_miejsca_zamieszkania=?, data_zgonu=? WHERE id=?", (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate, id))
         self.connection.commit()
 
     def delete(self, id):
-        self.cursor.execute("DELETE FROM test WHERE id=?", (id,))
+        self.cursor.execute("DELETE FROM dane_osobowe WHERE id=?", (id,))
         self.connection.commit()
 
 
