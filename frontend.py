@@ -50,7 +50,6 @@ class Window(object):
         labelDeathDate = tkinter.Label(window, text="Data zgonu:")
         labelDeathDate.grid(row=3, column=4)
         
-
         # ENTRIES:
         # 0. row
         self.name = tkinter.StringVar()
@@ -102,7 +101,6 @@ class Window(object):
         self.entryDeathDate = tkinter.Entry(window, textvariable=self.deathDate)
         self.entryDeathDate.grid(row=3, column=5)
         
-
         # listbox:
         self.listbox = tkinter.Listbox(window, height=8, width=184)
         self.listbox.grid(row=4, column=0, columnspan=8)
@@ -186,9 +184,8 @@ class Window(object):
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
-    #TODO change arguments
     def update_command(self):
-        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
+        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
 
     def clear_command(self):
         self.entryName.delete(0, tkinter.END)

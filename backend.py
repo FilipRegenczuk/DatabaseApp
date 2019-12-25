@@ -39,20 +39,28 @@ class Database:
 
     def insert(self, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
         insert = """
-            INSERT INTO dane_osobowe 
-            VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+            INSERT INTO dane_osobowe (imie, nazwisko, imie_i_nazwisko_rodowe_ojca, imie_i_nazwisko_rodowe_matki, data_urodzenia, miejsce_urodzenia, kraj_pochodzenia, plec, pesel, stan_cywilny, obywatelstwo_lub_stan_bezpanstwowca, adres_zameldowania_na_pobyt_staly, kraj_miejsca_zamieszkania, kraj_poprzedniego_miejsca_zamieszkania, data_zgonu) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
         self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate))
         self.connection.commit()
 
 
-    def update(self, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
+    def update(self, id, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
         update = """
-        UPDATE dane_osobowe 
-        SET imie=%s, nazwisko=%s, imie_i_nazwisko_rodowe_ojca=%s, imie_i_nazwisko_rodowe_matki=%s, data_urodzenia=%s, miejsce_urodzenia=%s, kraj_pochodzenia=%s, plec=%s, pesel=%s, stan_cywilny=%s, obywatelstwo_lub_stan_bezpanstwowca=%s, adres_zameldowania_na_pobyt_staly=%s, kraj_miejsca_zamieszkania=%s, kraj_poprzedniego_miejsca_zamieszkania=%s, data_zgonu=%s 
+        UPDATE dane_osobowe
+        SET imie=%s, nazwisko=%s, imie_i_nazwisko_rodowe_ojca=%s, imie_i_nazwisko_rodowe_matki=%s, data_urodzenia=%s, miejsce_urodzenia=%s, kraj_pochodzenia=%s, plec=%s, pesel=%s, stan_cywilny=%s, obywatelstwo_lub_stan_bezpanstwowca=%s, adres_zameldowania_na_pobyt_staly=%s, kraj_miejsca_zamieszkania=%s, kraj_poprzedniego_miejsca_zamieszkania=%s, data_zgonu=%s, czy_edytowane='Y' 
+        WHERE id_danych=%s
+        """
+        flagDown = """
+        UPDATE dane_osobowe
+        SET czy_edytowane = 'N'
         WHERE id_danych=%s
         """
         self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate, id))
+        self.cursor.execute(flagDown, (id,))
         self.connection.commit()
+
+
 
     
