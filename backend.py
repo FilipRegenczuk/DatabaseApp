@@ -88,3 +88,13 @@ class Database:
         return data
 
     
+    def combobox_states_input(self):
+        data= []
+        self.cursor.execute("SELECT stan_cywilny FROM stany_cywilne")
+
+        for row in self.cursor.fetchall():
+            data.append(row[0])
+
+        return data
+
+    

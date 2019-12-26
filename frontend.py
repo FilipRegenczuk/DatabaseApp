@@ -72,19 +72,13 @@ class Window(object):
         self.birthCity = tkinter.StringVar()
         self.entryBirthCity = tkinter.Entry(window, textvariable=self.birthCity)
         self.entryBirthCity.grid(row=1, column=3)
-        #self.birthCountry = tkinter.StringVar()
-        #self.entryBirthCountry = tkinter.Entry(window, textvariable=self.birthCountry)
-        #self.entryBirthCountry.grid(row=1, column=5)
-        self.sex = tkinter.StringVar()
-        self.entrySex = tkinter.Entry(window, textvariable=self.sex)
-        self.entrySex.grid(row=1, column=7)
         # 2. row
         self.pesel = tkinter.StringVar()
         self.entryPesel = tkinter.Entry(window, textvariable=self.pesel)
         self.entryPesel.grid(row=2, column=1)
-        self.state = tkinter.StringVar()
-        self.entryState = tkinter.Entry(window, textvariable=self.state)
-        self.entryState.grid(row=2, column=3)
+        #self.state = tkinter.StringVar()
+        #self.entryState = tkinter.Entry(window, textvariable=self.state)
+        #self.entryState.grid(row=2, column=3)
         self.nationality = tkinter.StringVar()
         self.entryNationality = tkinter.Entry(window, textvariable=self.nationality)
         self.entryNationality.grid(row=2, column=5)
@@ -92,31 +86,36 @@ class Window(object):
         self.entryAddress = tkinter.Entry(window, textvariable=self.address)
         self.entryAddress.grid(row=2, column=7)
         # 3. row
-        #self.country = tkinter.StringVar()
-        #self.entryCountry = tkinter.Entry(window, textvariable=self.country)
-        #self.entryCountry.grid(row=3, column=1)
-        #self.countryPriev = tkinter.StringVar()
-        #self.entryCountryPriev = tkinter.Entry(window, textvariable=self.countryPriev)
-        #self.entryCountryPriev.grid(row=3, column=3)
         self.deathDate = tkinter.StringVar()
         self.entryDeathDate = tkinter.Entry(window, textvariable=self.deathDate)
         self.entryDeathDate.grid(row=3, column=5)
         
-        # comboboxes:
+        # COMBOBOXES:
+        # countries:
         self.birthCountry = tkinter.StringVar()
         self.cbBirthCountry = tkinter.ttk.Combobox(window, textvariable=self.birthCountry, width=17)
         self.cbBirthCountry['values'] = database.combobox_countries_input()
         self.cbBirthCountry.grid(row=1, column=5)
-
+        #
         self.country = tkinter.StringVar()
         self.cbCountry = tkinter.ttk.Combobox(window, textvariable=self.country, width=17)
         self.cbCountry['values'] = database.combobox_countries_input()
         self.cbCountry.grid(row=3, column=1)
-
+        #
         self.countryPriev = tkinter.StringVar()
         self.cbCountryPriev = tkinter.ttk.Combobox(window, textvariable=self.countryPriev, width=17)
         self.cbCountryPriev['values'] = database.combobox_countries_input()
         self.cbCountryPriev.grid(row=3, column=3)
+        # sex:
+        self.sex = tkinter.StringVar()
+        self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17)
+        self.cbSex['values'] = ('K', 'M')
+        self.cbSex.grid(row=1, column=7)
+        # states:
+        self.state = tkinter.StringVar()
+        self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17)
+        self.cbState['values'] = database.combobox_states_input()
+        self.cbState.grid(row=2, column=3)
 
 
         # listbox:
@@ -168,12 +167,12 @@ class Window(object):
             self.entryBirthCity.insert(tkinter.END, selected_tuple[6])
             self.cbBirthCountry.delete(0, tkinter.END)
             self.cbBirthCountry.insert(tkinter.END, selected_tuple[7])
-            self.entrySex.delete(0, tkinter.END)
-            self.entrySex.insert(tkinter.END, selected_tuple[8])
+            self.cbSex.delete(0, tkinter.END)
+            self.cbSex.insert(tkinter.END, selected_tuple[8])
             self.entryPesel.delete(0, tkinter.END)
             self.entryPesel.insert(tkinter.END, selected_tuple[9])
-            self.entryState.delete(0, tkinter.END)
-            self.entryState.insert(tkinter.END, selected_tuple[10])
+            self.cbState.delete(0, tkinter.END)
+            self.cbState.insert(tkinter.END, selected_tuple[10])
             self.entryNationality.delete(0, tkinter.END)
             self.entryNationality.insert(tkinter.END, selected_tuple[11])
             self.entryAddress.delete(0, tkinter.END)
@@ -216,9 +215,9 @@ class Window(object):
         self.entryBirthDate.delete(0, tkinter.END)
         self.entryBirthCity.delete(0, tkinter.END)
         self.cbBirthCountry.delete(0, tkinter.END)
-        self.entrySex.delete(0, tkinter.END)
+        self.cbSex.delete(0, tkinter.END)
         self.entryPesel.delete(0, tkinter.END)
-        self.entryState.delete(0, tkinter.END)
+        self.cbState.delete(0, tkinter.END)
         self.entryNationality.delete(0, tkinter.END)
         self.entryAddress.delete(0, tkinter.END)
         self.cbCountry.delete(0, tkinter.END)
