@@ -78,5 +78,13 @@ class Database:
         self.connection.commit()
 
 
+    def combobox_countries_input(self):
+        data = []
+        self.cursor.execute("SELECT nazwa_kraju FROM kraje")
+
+        for row in self.cursor.fetchall():
+            data.append(row[0])
+        
+        return data
 
     

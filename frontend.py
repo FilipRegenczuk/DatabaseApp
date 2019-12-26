@@ -1,4 +1,5 @@
 import tkinter
+import tkinter.ttk
 from backend import Database
 
 
@@ -12,7 +13,7 @@ class Window(object):
         # window features:
         window.title("Dział Ewidencji Ludności")
         window.resizable(0, 0)
-        window.geometry('1110x260')
+        window.geometry('1130x260')
 
         # LABELS:
         # 0. row
@@ -71,9 +72,9 @@ class Window(object):
         self.birthCity = tkinter.StringVar()
         self.entryBirthCity = tkinter.Entry(window, textvariable=self.birthCity)
         self.entryBirthCity.grid(row=1, column=3)
-        self.birthCountry = tkinter.StringVar()
-        self.entryBirthCountry = tkinter.Entry(window, textvariable=self.birthCountry)
-        self.entryBirthCountry.grid(row=1, column=5)
+        #self.birthCountry = tkinter.StringVar()
+        #self.entryBirthCountry = tkinter.Entry(window, textvariable=self.birthCountry)
+        #self.entryBirthCountry.grid(row=1, column=5)
         self.sex = tkinter.StringVar()
         self.entrySex = tkinter.Entry(window, textvariable=self.sex)
         self.entrySex.grid(row=1, column=7)
@@ -91,16 +92,33 @@ class Window(object):
         self.entryAddress = tkinter.Entry(window, textvariable=self.address)
         self.entryAddress.grid(row=2, column=7)
         # 3. row
-        self.country = tkinter.StringVar()
-        self.entryCountry = tkinter.Entry(window, textvariable=self.country)
-        self.entryCountry.grid(row=3, column=1)
-        self.countryPriev = tkinter.StringVar()
-        self.entryCountryPriev = tkinter.Entry(window, textvariable=self.countryPriev)
-        self.entryCountryPriev.grid(row=3, column=3)
+        #self.country = tkinter.StringVar()
+        #self.entryCountry = tkinter.Entry(window, textvariable=self.country)
+        #self.entryCountry.grid(row=3, column=1)
+        #self.countryPriev = tkinter.StringVar()
+        #self.entryCountryPriev = tkinter.Entry(window, textvariable=self.countryPriev)
+        #self.entryCountryPriev.grid(row=3, column=3)
         self.deathDate = tkinter.StringVar()
         self.entryDeathDate = tkinter.Entry(window, textvariable=self.deathDate)
         self.entryDeathDate.grid(row=3, column=5)
         
+        # comboboxes:
+        self.birthCountry = tkinter.StringVar()
+        self.cbBirthCountry = tkinter.ttk.Combobox(window, textvariable=self.birthCountry, width=17)
+        self.cbBirthCountry['values'] = database.combobox_countries_input()
+        self.cbBirthCountry.grid(row=1, column=5)
+
+        self.country = tkinter.StringVar()
+        self.cbCountry = tkinter.ttk.Combobox(window, textvariable=self.country, width=17)
+        self.cbCountry['values'] = database.combobox_countries_input()
+        self.cbCountry.grid(row=3, column=1)
+
+        self.countryPriev = tkinter.StringVar()
+        self.cbCountryPriev = tkinter.ttk.Combobox(window, textvariable=self.countryPriev, width=17)
+        self.cbCountryPriev['values'] = database.combobox_countries_input()
+        self.cbCountryPriev.grid(row=3, column=3)
+
+
         # listbox:
         self.listbox = tkinter.Listbox(window, height=8, width=184)
         self.listbox.grid(row=4, column=0, columnspan=8)
@@ -148,8 +166,8 @@ class Window(object):
             self.entryBirthDate.insert(tkinter.END, selected_tuple[5])
             self.entryBirthCity.delete(0, tkinter.END)
             self.entryBirthCity.insert(tkinter.END, selected_tuple[6])
-            self.entryBirthCountry.delete(0, tkinter.END)
-            self.entryBirthCountry.insert(tkinter.END, selected_tuple[7])
+            self.cbBirthCountry.delete(0, tkinter.END)
+            self.cbBirthCountry.insert(tkinter.END, selected_tuple[7])
             self.entrySex.delete(0, tkinter.END)
             self.entrySex.insert(tkinter.END, selected_tuple[8])
             self.entryPesel.delete(0, tkinter.END)
@@ -160,10 +178,10 @@ class Window(object):
             self.entryNationality.insert(tkinter.END, selected_tuple[11])
             self.entryAddress.delete(0, tkinter.END)
             self.entryAddress.insert(tkinter.END, selected_tuple[12])
-            self.entryCountry.delete(0, tkinter.END)
-            self.entryCountry.insert(tkinter.END, selected_tuple[13])
-            self.entryCountryPriev.delete(0, tkinter.END)
-            self.entryCountryPriev.insert(tkinter.END, selected_tuple[14])
+            self.cbCountry.delete(0, tkinter.END)
+            self.cbCountry.insert(tkinter.END, selected_tuple[13])
+            self.cbCountryPriev.delete(0, tkinter.END)
+            self.cbCountryPriev.insert(tkinter.END, selected_tuple[14])
             self.entryDeathDate.delete(0, tkinter.END)
             self.entryDeathDate.insert(tkinter.END, selected_tuple[15])
         except IndexError:
@@ -186,6 +204,9 @@ class Window(object):
 
     def update_command(self):
         database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
+        self.listbox.delete(0, tkinter.END)
+        self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
+
 
     def clear_command(self):
         self.entryName.delete(0, tkinter.END)
@@ -194,15 +215,16 @@ class Window(object):
         self.entryMother.delete(0, tkinter.END)
         self.entryBirthDate.delete(0, tkinter.END)
         self.entryBirthCity.delete(0, tkinter.END)
-        self.entryBirthCountry.delete(0, tkinter.END)
+        self.cbBirthCountry.delete(0, tkinter.END)
         self.entrySex.delete(0, tkinter.END)
         self.entryPesel.delete(0, tkinter.END)
         self.entryState.delete(0, tkinter.END)
         self.entryNationality.delete(0, tkinter.END)
         self.entryAddress.delete(0, tkinter.END)
-        self.entryCountry.delete(0, tkinter.END)
-        self.entryCountryPriev.delete(0, tkinter.END)
+        self.cbCountry.delete(0, tkinter.END)
+        self.cbCountryPriev.delete(0, tkinter.END)
         self.entryDeathDate.delete(0, tkinter.END)
+
 
 
 window = tkinter.Tk()
