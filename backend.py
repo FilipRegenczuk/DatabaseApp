@@ -65,7 +65,15 @@ class Database:
         SET czy_edytowane = 'N'
         WHERE id_danych=%s
         """
-        self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate, id))
+        if countryPriev == "None" and deathDate == "None":
+            self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, None, None, id))
+        elif countryPriev == "None":
+            self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, None, deathDate, id))
+        elif deathDate == "None":
+            self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, None, id))
+        else:
+            self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate, id))
+
         self.cursor.execute(flagDown, (id,))
         self.connection.commit()
 
