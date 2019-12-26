@@ -42,7 +42,15 @@ class Database:
             INSERT INTO dane_osobowe (imie, nazwisko, imie_i_nazwisko_rodowe_ojca, imie_i_nazwisko_rodowe_matki, data_urodzenia, miejsce_urodzenia, kraj_pochodzenia, plec, pesel, stan_cywilny, obywatelstwo_lub_stan_bezpanstwowca, adres_zameldowania_na_pobyt_staly, kraj_miejsca_zamieszkania, kraj_poprzedniego_miejsca_zamieszkania, data_zgonu) 
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
-        self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate))
+        if countryPriev == "None" and deathDate == "None":
+            self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, None, None))
+        elif countryPriev == "None":
+            self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, None, deathDate))
+        elif deathDate == "None":
+            self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, None))
+        else:
+            self.cursor.execute(insert, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate))
+
         self.connection.commit()
 
 
