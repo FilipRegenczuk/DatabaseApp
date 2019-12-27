@@ -105,15 +105,14 @@ class Window(object):
         self.cbCountryPriev.grid(row=3, column=3)
         # sex:
         self.sex = tkinter.StringVar()
-        self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17)
+        self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17, state='readonly')
         self.cbSex['values'] = self.get_sex()
         self.cbSex.grid(row=1, column=7)
         # states:
         self.state = tkinter.StringVar()
-        self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17)
+        self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17, state='readonly')
         self.cbState['values'] = self.get_states()
         self.cbState.grid(row=2, column=3)
-
 
         # listbox:
         self.listbox = tkinter.Listbox(window, height=8, width=184)
@@ -139,6 +138,8 @@ class Window(object):
         buttonAdd.grid(row=5, column=3)
         buttonUpdate = tkinter.Button(window, text="Edytuj", width=14, command=self.update_command)
         buttonUpdate.grid(row=5, column=4)
+        buttonHistory = tkinter.Button(window, text="Historia", width=14, command=self.show_history_command)
+        buttonHistory.grid(row=5, column=5)
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
         buttonClose.grid(row=5, column=7)
 
@@ -236,6 +237,12 @@ class Window(object):
     # The method returning sex
     def get_sex(self):
         return buisness.get_sex()
+
+    def show_history_command(self):
+        self.listbox.delete(0, tkinter.END)
+        for row in buisness.show_history_command(selected_tuple[0]):
+            self.listbox.insert(tkinter.END, row)
+
 
 window = tkinter.Tk()
 Window(window)

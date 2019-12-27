@@ -24,3 +24,6 @@ class Buisness:
 
     def get_sex(self):
         return ('K', 'M')
+
+    def show_history_command(self, id):
+        return database.view_history(id)

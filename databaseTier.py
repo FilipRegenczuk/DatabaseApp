@@ -98,3 +98,12 @@ class Database:
         return data
 
     
+    def view_history(self, id):
+        view_history = """
+            SELECT *
+            FROM przeszle_dane_osobowe
+            WHERE id_danych=%s
+        """
+        self.cursor.execute(view_history, (id,))
+        rows = self.cursor.fetchall()
+        return rows
