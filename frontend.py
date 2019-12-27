@@ -94,17 +94,17 @@ class Window(object):
         # countries:
         self.birthCountry = tkinter.StringVar()
         self.cbBirthCountry = tkinter.ttk.Combobox(window, textvariable=self.birthCountry, width=17)
-        self.cbBirthCountry['values'] = database.combobox_countries_input()
+        self.cbBirthCountry['values'] = self.get_countries()
         self.cbBirthCountry.grid(row=1, column=5)
         #
         self.country = tkinter.StringVar()
         self.cbCountry = tkinter.ttk.Combobox(window, textvariable=self.country, width=17)
-        self.cbCountry['values'] = database.combobox_countries_input()
+        self.cbCountry['values'] = self.get_countries()
         self.cbCountry.grid(row=3, column=1)
         #
         self.countryPriev = tkinter.StringVar()
         self.cbCountryPriev = tkinter.ttk.Combobox(window, textvariable=self.countryPriev, width=17)
-        self.cbCountryPriev['values'] = database.combobox_countries_input()
+        self.cbCountryPriev['values'] = self.get_countries()
         self.cbCountryPriev.grid(row=3, column=3)
         # sex:
         self.sex = tkinter.StringVar()
@@ -114,7 +114,7 @@ class Window(object):
         # states:
         self.state = tkinter.StringVar()
         self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17)
-        self.cbState['values'] = database.combobox_states_input()
+        self.cbState['values'] = self.get_states()
         self.cbState.grid(row=2, column=3)
 
 
@@ -206,7 +206,6 @@ class Window(object):
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
-
     def clear_command(self):
         self.entryName.delete(0, tkinter.END)
         self.entrySurname.delete(0, tkinter.END)
@@ -224,6 +223,11 @@ class Window(object):
         self.cbCountryPriev.delete(0, tkinter.END)
         self.entryDeathDate.delete(0, tkinter.END)
 
+    def get_countries(self):
+        return database.combobox_countries_input()
+
+    def get_states(self):
+        return database.combobox_states_input()
 
 
 window = tkinter.Tk()
