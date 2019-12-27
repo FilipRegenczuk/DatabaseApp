@@ -56,14 +56,14 @@ class Database:
 
     def update(self, id, name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, countryPriev, deathDate):
         update = """
-        UPDATE dane_osobowe
-        SET imie=%s, nazwisko=%s, imie_i_nazwisko_rodowe_ojca=%s, imie_i_nazwisko_rodowe_matki=%s, data_urodzenia=%s, miejsce_urodzenia=%s, kraj_pochodzenia=%s, plec=%s, pesel=%s, stan_cywilny=%s, obywatelstwo_lub_stan_bezpanstwowca=%s, adres_zameldowania_na_pobyt_staly=%s, kraj_miejsca_zamieszkania=%s, kraj_poprzedniego_miejsca_zamieszkania=%s, data_zgonu=%s, czy_edytowane='Y' 
-        WHERE id_danych=%s
+            UPDATE dane_osobowe
+            SET imie=%s, nazwisko=%s, imie_i_nazwisko_rodowe_ojca=%s, imie_i_nazwisko_rodowe_matki=%s, data_urodzenia=%s, miejsce_urodzenia=%s, kraj_pochodzenia=%s, plec=%s, pesel=%s, stan_cywilny=%s, obywatelstwo_lub_stan_bezpanstwowca=%s, adres_zameldowania_na_pobyt_staly=%s, kraj_miejsca_zamieszkania=%s, kraj_poprzedniego_miejsca_zamieszkania=%s, data_zgonu=%s, czy_edytowane='Y' 
+            WHERE id_danych=%s
         """
         flagDown = """
-        UPDATE dane_osobowe
-        SET czy_edytowane = 'N'
-        WHERE id_danych=%s
+            UPDATE dane_osobowe
+            SET czy_edytowane = 'N'
+            WHERE id_danych=%s
         """
         if countryPriev == "None" and deathDate == "None":
             self.cursor.execute(update, (name, surname, father, mother, birthDate, birthCity, birthCountry, sex, pesel, state, nationality, address, country, None, None, id))
