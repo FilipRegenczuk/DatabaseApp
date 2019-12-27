@@ -1,9 +1,9 @@
 import tkinter
 import tkinter.ttk
-from backend import Database
+from buisnessTier import Buisness
 
+buisness = Buisness()
 
-database = Database()
 
 class Window(object):
 
@@ -76,9 +76,6 @@ class Window(object):
         self.pesel = tkinter.StringVar()
         self.entryPesel = tkinter.Entry(window, textvariable=self.pesel)
         self.entryPesel.grid(row=2, column=1)
-        #self.state = tkinter.StringVar()
-        #self.entryState = tkinter.Entry(window, textvariable=self.state)
-        #self.entryState.grid(row=2, column=3)
         self.nationality = tkinter.StringVar()
         self.entryNationality = tkinter.Entry(window, textvariable=self.nationality)
         self.entryNationality.grid(row=2, column=5)
@@ -109,7 +106,7 @@ class Window(object):
         # sex:
         self.sex = tkinter.StringVar()
         self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17)
-        self.cbSex['values'] = ('K', 'M')
+        self.cbSex['values'] = self.get_sex()
         self.cbSex.grid(row=1, column=7)
         # states:
         self.state = tkinter.StringVar()
@@ -188,21 +185,21 @@ class Window(object):
 
     def view_command(self):
         self.listbox.delete(0, tkinter.END)
-        for row in database.view():
+        for row in buisness.view_command():
             self.listbox.insert(tkinter.END, row)
 
     def search_command(self):
         self.listbox.delete(0, tkinter.END)
-        for row in database.search(self.pesel.get(), self.name.get(), self.surname.get()):
+        for row in buisness.search_command(self.pesel.get(), self.name.get(), self.surname.get()):
             self.listbox.insert(tkinter.END, row)
 
     def add_command(self):
-        database.insert(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
+        buisness.add_command(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
     def update_command(self):
-        database.update(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
+        buisness.update_command(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
@@ -224,11 +221,13 @@ class Window(object):
         self.entryDeathDate.delete(0, tkinter.END)
 
     def get_countries(self):
-        return database.combobox_countries_input()
+        return buisness.get_countries()
 
     def get_states(self):
-        return database.combobox_states_input()
+        return buisness.get_states()
 
+    def get_sex(self):
+        return buisness.get_sex()
 
 window = tkinter.Tk()
 Window(window)
