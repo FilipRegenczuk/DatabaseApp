@@ -1,4 +1,4 @@
-from backend import Database
+from databaseTier import Database
 
 database = Database()
 
