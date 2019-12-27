@@ -143,7 +143,7 @@ class Window(object):
         buttonClose.grid(row=5, column=7)
 
 
-    # This function is used to return id of selected row. 
+    # This method is used to return id of selected row. 
     # Futhermore it prints selected row in labels.
     def get_selected_row(self, event):
         try:
@@ -182,27 +182,32 @@ class Window(object):
             self.entryDeathDate.insert(tkinter.END, selected_tuple[15])
         except IndexError:
             pass
-
+    
+    # The method clears listbox and prints all records in db
     def view_command(self):
         self.listbox.delete(0, tkinter.END)
         for row in buisness.view_command():
             self.listbox.insert(tkinter.END, row)
 
+    # The method which search the record using name and surname or pesel
     def search_command(self):
         self.listbox.delete(0, tkinter.END)
         for row in buisness.search_command(self.pesel.get(), self.name.get(), self.surname.get()):
             self.listbox.insert(tkinter.END, row)
 
+    # The method adding new record to db
     def add_command(self):
         buisness.add_command(self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
+    # The method updating existing record in db
     def update_command(self):
         buisness.update_command(selected_tuple[0], self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCity.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get())
         self.listbox.delete(0, tkinter.END)
         self.listbox.insert(tkinter.END, (self.name.get(), self.surname.get(), self.father.get(), self.mother.get(), self.birthDate.get(), self.birthCountry.get(), self.sex.get(), self.pesel.get(), self.state.get(), self.nationality.get(), self.address.get(), self.country.get(), self.countryPriev.get(), self.deathDate.get()))
 
+    # The method clearing all entries and comboboxes
     def clear_command(self):
         self.entryName.delete(0, tkinter.END)
         self.entrySurname.delete(0, tkinter.END)
@@ -220,12 +225,15 @@ class Window(object):
         self.cbCountryPriev.delete(0, tkinter.END)
         self.entryDeathDate.delete(0, tkinter.END)
 
+    # The method returning countries from db
     def get_countries(self):
         return buisness.get_countries()
 
+    # The method returning states from db
     def get_states(self):
         return buisness.get_states()
 
+    # The method returning sex
     def get_sex(self):
         return buisness.get_sex()
 
