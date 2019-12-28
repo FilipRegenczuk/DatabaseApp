@@ -250,9 +250,9 @@ class WindowClient(object):
         self.window = window
 
         # window features:
-        window.title ("Dział Ewidencji Ludności - pracownik")
+        window.title ("Dział Ewidencji Ludności - klient")
         window.resizable(0, 0)
-        window.geometry('600x260')
+        window.geometry('400x120')
 
         # LABELS:
         # 0. row:
@@ -286,9 +286,14 @@ class WindowClient(object):
         self.entryType.grid(row=1, column=3)
         # 2. row:
         self.newData = tkinter.StringVar()
-        self.entryNewData = tkinter.Entry(window, textvariable=self.newData)
-        self.entryNewData.grid(row=2, column=1)
+        self.entryNewData = tkinter.Entry(window, textvariable=self.newData, width=54)
+        self.entryNewData.grid(row=2, column=1, columnspan=3)
 
+        # buttons:
+        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14)
+        buttonAccept.grid(row=3, column=1)
+        buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
+        buttonClose.grid(row=3, column=3)
 
 
 
