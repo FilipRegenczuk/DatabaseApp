@@ -5,13 +5,13 @@ from buisnessTier import Buisness
 buisness = Buisness()
 
 
-class Window(object):
+class WindowWorker(object):
 
     def __init__(self, window):
         self.window = window
 
         # window features:
-        window.title("Dział Ewidencji Ludności")
+        window.title("Dział Ewidencji Ludności - pracownik")
         window.resizable(0, 0)
         window.geometry('1130x260')
 
@@ -244,6 +244,55 @@ class Window(object):
             self.listbox.insert(tkinter.END, row)
 
 
+class WindowClient(object):
+
+    def __init__(self, window):
+        self.window = window
+
+        # window features:
+        window.title ("Dział Ewidencji Ludności - pracownik")
+        window.resizable(0, 0)
+        window.geometry('600x260')
+
+        # LABELS:
+        # 0. row:
+        labelName = tkinter.Label(window, text="Imię:")
+        labelName.grid(row=0, column=0)
+        labelSurname = tkinter.Label(window, text="Nazwisko:")
+        labelSurname.grid(row=0, column=2)
+        # 1. row:
+        labelPesel = tkinter.Label(window, text="PESEL:")
+        labelPesel.grid(row=1, column=0)
+        labelType = tkinter.Label(window, text="Typ wniosku:")
+        labelType.grid(row=1, column=2)
+        # 2. row:
+        labelNewData = tkinter.Label(window, text="Nowe dane:")
+        labelNewData.grid(row=2, column=0)
+
+        # ENTRIES:
+        # 0. row:
+        self.name = tkinter.StringVar()
+        self.entryName = tkinter.Entry(window, textvariable=self.name)
+        self.entryName.grid(row=0, column=1)
+        self.surname = tkinter.StringVar()
+        self.entrySurname = tkinter.Entry(window, textvariable=self.surname)
+        self.entrySurname.grid(row=0, column=3)
+        # 1. row:
+        self.pesel = tkinter.StringVar()
+        self.entryPesel = tkinter.Entry(window, textvariable=self.pesel)
+        self.entryPesel.grid(row=1, column=1)
+        self.type = tkinter.StringVar()
+        self.entryType = tkinter.Entry(window, textvariable=self.type)
+        self.entryType.grid(row=1, column=3)
+        # 2. row:
+        self.newData = tkinter.StringVar()
+        self.entryNewData = tkinter.Entry(window, textvariable=self.newData)
+        self.entryNewData.grid(row=2, column=1)
+
+
+
+
 window = tkinter.Tk()
-Window(window)
+#WindowWorker(window)
+WindowClient(window)
 window.mainloop()
