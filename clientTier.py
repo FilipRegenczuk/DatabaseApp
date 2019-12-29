@@ -105,12 +105,12 @@ class WindowWorker(object):
         self.cbCountryPriev.grid(row=3, column=3)
         # sex:
         self.sex = tkinter.StringVar()
-        self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17, state='readonly')
+        self.cbSex = tkinter.ttk.Combobox(window, textvariable=self.sex, width=17)
         self.cbSex['values'] = self.get_sex()
         self.cbSex.grid(row=1, column=7)
         # states:
         self.state = tkinter.StringVar()
-        self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17, state='readonly')
+        self.cbState = tkinter.ttk.Combobox(window, textvariable=self.state, width=17)
         self.cbState['values'] = self.get_states()
         self.cbState.grid(row=2, column=3)
 
@@ -304,7 +304,10 @@ class WindowClient(object):
         return buisness.get_services()
 
 
-window = tkinter.Tk()
-#WindowWorker(window)
-WindowClient(window)
-window.mainloop()
+windowWorker = tkinter.Tk()
+WindowWorker(windowWorker)
+windowWorker.mainloop()
+
+windowClient = tkinter.Tk()
+WindowClient(windowClient)
+windowClient.mainloop()
