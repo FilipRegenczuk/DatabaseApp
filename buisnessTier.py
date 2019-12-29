@@ -25,5 +25,8 @@ class Buisness:
     def get_sex(self):
         return ('K', 'M')
 
+    def get_services(self):
+        return database.combobox_services_input()
+
     def show_history_command(self, id):
         return database.view_history(id)

@@ -98,6 +98,16 @@ class Database:
         return data
 
     
+    def combobox_services_input(self):
+        data = []
+        self.cursor.execute("SELECT typ_wniosku FROM uslugi")
+
+        for row in self.cursor.fetchall():
+            data.append(row[0])
+
+        return data
+
+    
     def view_history(self, id):
         view_history = """
             SELECT *

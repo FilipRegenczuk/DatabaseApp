@@ -252,7 +252,7 @@ class WindowClient(object):
         # window features:
         window.title ("Dział Ewidencji Ludności - klient")
         window.resizable(0, 0)
-        window.geometry('400x120')
+        window.geometry('450x120')
 
         # LABELS:
         # 0. row:
@@ -263,11 +263,12 @@ class WindowClient(object):
         # 1. row:
         labelPesel = tkinter.Label(window, text="PESEL:")
         labelPesel.grid(row=1, column=0)
-        labelType = tkinter.Label(window, text="Typ wniosku:")
-        labelType.grid(row=1, column=2)
         # 2. row:
+        labelType = tkinter.Label(window, text="Typ wniosku:")
+        labelType.grid(row=2, column=0)
+        # 3. row:
         labelNewData = tkinter.Label(window, text="Nowe dane:")
-        labelNewData.grid(row=2, column=0)
+        labelNewData.grid(row=3, column=0)
 
         # ENTRIES:
         # 0. row:
@@ -281,20 +282,26 @@ class WindowClient(object):
         self.pesel = tkinter.StringVar()
         self.entryPesel = tkinter.Entry(window, textvariable=self.pesel)
         self.entryPesel.grid(row=1, column=1)
-        self.type = tkinter.StringVar()
-        self.entryType = tkinter.Entry(window, textvariable=self.type)
-        self.entryType.grid(row=1, column=3)
-        # 2. row:
+        # 3. row:
         self.newData = tkinter.StringVar()
         self.entryNewData = tkinter.Entry(window, textvariable=self.newData, width=54)
-        self.entryNewData.grid(row=2, column=1, columnspan=3)
+        self.entryNewData.grid(row=3, column=1, columnspan=3)
+
+        # combobox:
+        self.service = tkinter.StringVar()
+        self.cbService = tkinter.ttk.Combobox(window, textvariable=self.service, width=51, state='readonly')
+        self.cbService['values'] = self.get_service()
+        self.cbService.grid(row=2, column=1, columnspan=3)
 
         # buttons:
         buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14)
-        buttonAccept.grid(row=3, column=1)
+        buttonAccept.grid(row=4, column=1)
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
-        buttonClose.grid(row=3, column=3)
+        buttonClose.grid(row=4, column=3)
 
+
+    def get_service(self):
+        return buisness.get_services()
 
 
 window = tkinter.Tk()
