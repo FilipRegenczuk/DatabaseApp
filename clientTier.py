@@ -5,6 +5,7 @@ from buisnessTier import Buisness
 buisness = Buisness()
 
 
+# GUI for worker
 class WindowWorker(object):
 
     def __init__(self, window):
@@ -244,6 +245,7 @@ class WindowWorker(object):
             self.listbox.insert(tkinter.END, row)
 
 
+# GUI for client
 class WindowClient(object):
 
     def __init__(self, window):
@@ -294,11 +296,13 @@ class WindowClient(object):
         self.cbService.grid(row=2, column=1, columnspan=3)
 
         # buttons:
-        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14)
+        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14, command=self.save_proposal_command)
         buttonAccept.grid(row=4, column=1)
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
         buttonClose.grid(row=4, column=3)
 
+    def save_proposal_command(self):
+        buisness.save_proposal_command(self.pesel, self.name, self.surname, self.service, self.newData)
 
     def get_service(self):
         return buisness.get_services()

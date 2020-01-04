@@ -30,3 +30,9 @@ class Buisness:
 
     def show_history_command(self, id):
         return database.view_history(id)
+
+    def save_proposal_command(self, pesel, name, surname, service, newData):
+        fileName = pesel.get() + ".txt"
+        file = open(fileName, 'w')
+        file.write(name.get() + "\n" + surname.get() + "\n" + service.get() + "\n" + newData.get())
+        file.close()
