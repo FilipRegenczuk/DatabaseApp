@@ -1,3 +1,4 @@
+"""DatabaseTier module consists of connection to database and mechanisms of data"""
 import mysql.connector
 
 class Database:

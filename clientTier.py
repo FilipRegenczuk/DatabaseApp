@@ -1,3 +1,5 @@
+""" ClientTier module consists of graphical user interface and interaction with user """
+
 import tkinter
 import tkinter.ttk
 from buisnessTier import Buisness
