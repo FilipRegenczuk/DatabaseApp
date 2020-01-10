@@ -80,7 +80,7 @@ class Database:
 
     def combobox_countries_input(self):
         data = []
-        self.cursor.execute("SELECT nazwa_kraju FROM kraje")
+        self.cursor.execute("SELECT * FROM widok_kraje")
 
         for row in self.cursor.fetchall():
             data.append(row[0])
@@ -90,7 +90,7 @@ class Database:
     
     def combobox_states_input(self):
         data= []
-        self.cursor.execute("SELECT stan_cywilny FROM stany_cywilne")
+        self.cursor.execute("SELECT * FROM widok_stany_cywilne")
 
         for row in self.cursor.fetchall():
             data.append(row[0])
