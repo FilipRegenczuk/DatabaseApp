@@ -1,4 +1,4 @@
-"""BusinessTier module is responsible for transactions, flow of data and services"""
+""" BusinessTier module is responsible for transactions, flow of data and services """
 
 from databaseTier import Database
 
