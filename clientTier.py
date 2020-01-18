@@ -14,7 +14,7 @@ class WindowWorker(object):
         self.window = window
 
         # window features:
-        window.title("Dział Ewidencji Ludności - pracownik")
+        window.title("Dział Ewidencji Ludności - Pracownik")
         window.resizable(0, 0)
         window.geometry('1130x260')
 
@@ -254,7 +254,7 @@ class WindowClient(object):
         self.window = window
 
         # window features:
-        window.title ("Dział Ewidencji Ludności - klient")
+        window.title ("Dział Ewidencji Ludności - Klient")
         window.resizable(0, 0)
         window.geometry('450x120')
 
@@ -318,32 +318,32 @@ class WindowLog(object):
         # window features:
         window.title ("Logowanie")
         window.resizable(0, 0)
-        window.geometry('300x80')
+        window.geometry('385x100')
 
         # LABELS:
         # 1. row:
-        labelUser = tkinter.Label(window, text="Użytkownik:", width=15)
+        labelUser = tkinter.Label(window, text="Użytkownik:", width=27)
         labelUser.grid(row=0, column=0)
         # 2. row:
-        labelPassword = tkinter.Label(window, text="Hasło:", width=15)
+        labelPassword = tkinter.Label(window, text="Hasło:", width=27)
         labelPassword.grid(row=1, column=0)
 
         # combobox:
         self.user = tkinter.StringVar()
         self.cbUser = tkinter.ttk.Combobox(window, textvariable=self.user, width=24, state='readonly')
         self.cbUser['values'] = self.get_user()
-        self.cbUser.grid(row=0, column=1)
+        self.cbUser.grid(row=0, column=1, pady=4)
 
         # entry:
         self.password = tkinter.StringVar()
         self.entryPassword = tkinter.Entry(window, textvariable=self.password, width=27, show="*")
-        self.entryPassword.grid(row=1, column=1)
+        self.entryPassword.grid(row=1, column=1, pady=4)
 
         # buttons:
         buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14, command=self.check_password)
-        buttonAccept.grid(row=2, column=0, sticky='E')
+        buttonAccept.grid(row=2, column=0, pady=10)
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
-        buttonClose.grid(row=2, column=1, sticky='E')
+        buttonClose.grid(row=2, column=1, pady=10)
 
     def get_user(self):
         return buisness.get_user()
@@ -353,10 +353,11 @@ class WindowLog(object):
         if user == "pracownik":
             self.window.destroy()
             self.open_window_worker()
-
-        if user == "klient":
+        elif user == "klient":
             self.window.destroy()
             self.open_window_client()
+        else:
+            self.open_window_popup()
 
     def open_window_worker(self):
         windowWorker = tkinter.Tk()
@@ -367,6 +368,14 @@ class WindowLog(object):
         windowClient = tkinter.Tk()
         WindowClient(windowClient)
         windowClient.mainloop()
+    
+    def open_window_popup(self):
+        popup = tkinter.Tk()
+        label = tkinter.Label(popup, text="Złe hasło")
+        label.pack(side="top", fill="x", pady=10)
+        buttonOk = tkinter.Button(popup, text="Ok", command = popup.destroy, width=15)
+        buttonOk.pack()
+        popup.mainloop()
 
 
 windowLog = tkinter.Tk()
