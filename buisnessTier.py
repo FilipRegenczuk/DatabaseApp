@@ -43,11 +43,9 @@ class Buisness:
         return database.view_history(id)
 
     # The method is saving a proposal from client to a txt file
-    def save_proposal_command(self, pesel, name, surname, service, newData):
-        fileName = pesel.get() + ".txt"
-        file = open(fileName, 'w')
-        file.write(name.get() + "\n" + surname.get() + "\n" + service.get() + "\n" + newData.get())
-        file.close()
+    def add_proposal_command(self, pesel, name, surname, service, newData):
+        data = database.search(pesel, name, surname)
+        database.insert_proporsal(data[0][0], service, newData)
 
     def get_user(self):
         return ("Pracownik", "Klient")

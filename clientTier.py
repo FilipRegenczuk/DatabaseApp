@@ -298,13 +298,14 @@ class WindowClient(object):
         self.cbService.grid(row=2, column=1, columnspan=3)
 
         # buttons:
-        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14, command=self.save_proposal_command)
+        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14, command=self.add_proposal_command)
         buttonAccept.grid(row=4, column=1)
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
         buttonClose.grid(row=4, column=3)
 
-    def save_proposal_command(self):
-        buisness.save_proposal_command(self.pesel, self.name, self.surname, self.service, self.newData)
+    def add_proposal_command(self):
+        self.window.destroy()
+        buisness.add_proposal_command(self.pesel.get(), self.name.get(), self.surname.get(), self.service.get(), self.newData.get())
 
     def get_service(self):
         return buisness.get_services()
