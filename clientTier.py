@@ -340,26 +340,35 @@ class WindowLog(object):
         self.entryPassword.grid(row=1, column=1)
 
         # buttons:
-        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14)
+        buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14, command=self.check_password)
         buttonAccept.grid(row=2, column=0, sticky='E')
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
         buttonClose.grid(row=2, column=1, sticky='E')
 
     def get_user(self):
         return buisness.get_user()
+    
+    def check_password(self):
+        user = buisness.check_password(self.user, self.password)
+        if user == "pracownik":
+            self.window.destroy()
+            self.open_window_worker()
 
+        if user == "klient":
+            self.window.destroy()
+            self.open_window_client()
+
+    def open_window_worker(self):
+        windowWorker = tkinter.Tk()
+        WindowWorker(windowWorker)
+        windowWorker.mainloop()
+
+    def open_window_client(self):
+        windowClient = tkinter.Tk()
+        WindowClient(windowClient)
+        windowClient.mainloop()
 
 
 windowLog = tkinter.Tk()
 WindowLog(windowLog)
 windowLog.mainloop()
-
-"""
-windowWorker = tkinter.Tk()
-WindowWorker(windowWorker)
-windowWorker.mainloop()
-
-windowClient = tkinter.Tk()
-WindowClient(windowClient)
-windowClient.mainloop()
-"""

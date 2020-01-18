@@ -51,3 +51,12 @@ class Buisness:
 
     def get_user(self):
         return ("Pracownik", "Klient")
+
+    def check_password(self, user, password):
+        if user.get() == "Pracownik" and password.get() == "Pracownik":
+            return "pracownik"
+        if user.get() == "Klient" and password.get() == "Klient":
+            return "klient"
+        else:
+            return "wrong"
+
