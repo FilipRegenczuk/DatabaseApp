@@ -48,3 +48,6 @@ class Buisness:
         file = open(fileName, 'w')
         file.write(name.get() + "\n" + surname.get() + "\n" + service.get() + "\n" + newData.get())
         file.close()
+
+    def get_user(self):
+        return ("Pracownik", "Klient")
