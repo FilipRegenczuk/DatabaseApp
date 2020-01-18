@@ -371,9 +371,11 @@ class WindowLog(object):
     
     def open_window_popup(self):
         popup = tkinter.Tk()
+        popup.resizable(0, 0)
+        popup.geometry('150x80')
         label = tkinter.Label(popup, text="Złe hasło")
         label.pack(side="top", fill="x", pady=10)
-        buttonOk = tkinter.Button(popup, text="Ok", command = popup.destroy, width=15)
+        buttonOk = tkinter.Button(popup, text="Ok", command = popup.destroy, width=10)
         buttonOk.pack()
         popup.mainloop()
 
