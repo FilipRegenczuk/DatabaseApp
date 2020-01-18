@@ -310,6 +310,7 @@ class WindowClient(object):
         return buisness.get_services()
 
 
+# GUI for logging
 class WindowLog(object):
 
     def __init__(self, window):

@@ -80,6 +80,15 @@ class Database:
         self.connection.commit()
 
 
+    def insert_proporsal(self, id, service, newData):
+        insert = """
+            INSERT INTO wnioski (id_danych, typ_wniosku, nowe_dane)
+            VALUES (%s, %s, %s)
+        """
+        self.cursor.execute(insert, (id, service, newData))
+        self.connection.commit()
+
+
     def combobox_countries_input(self):
         data = []
         self.cursor.execute("SELECT * FROM widok_kraje")
