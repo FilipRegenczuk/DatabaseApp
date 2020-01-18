@@ -318,7 +318,7 @@ class WindowLog(object):
         # window features:
         window.title ("Logowanie")
         window.resizable(0, 0)
-        window.geometry('300x120')
+        window.geometry('300x80')
 
         # LABELS:
         # 1. row:
@@ -330,23 +330,25 @@ class WindowLog(object):
 
         # combobox:
         self.user = tkinter.StringVar()
-        self.cbUser = tkinter.ttk.Combobox(window, textvariable=self.user, width=20, state='readonly')
+        self.cbUser = tkinter.ttk.Combobox(window, textvariable=self.user, width=24, state='readonly')
         self.cbUser['values'] = self.get_user()
         self.cbUser.grid(row=0, column=1)
 
         # entry:
         self.password = tkinter.StringVar()
-        self.entryPassword = tkinter.Entry(window, textvariable=self.password, width=23)
+        self.entryPassword = tkinter.Entry(window, textvariable=self.password, width=27, show="*")
         self.entryPassword.grid(row=1, column=1)
 
         # buttons:
         buttonAccept = tkinter.Button(window, text="Zatwierdź", width=14)
-        buttonAccept.grid(row=2, column=0)
+        buttonAccept.grid(row=2, column=0, sticky='E')
         buttonClose = tkinter.Button(window, text="Zamknij", width=14, command=window.destroy)
-        buttonClose.grid(row=2, column=1)
+        buttonClose.grid(row=2, column=1, sticky='E')
 
     def get_user(self):
         return buisness.get_user()
+
+
 
 windowLog = tkinter.Tk()
 WindowLog(windowLog)
